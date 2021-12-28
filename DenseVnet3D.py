@@ -128,3 +128,104 @@ def transition_block(input, nb_filter, compression=1.0, weight_decay=1e-4,
                use_bias=False,
                kernel_regularizer=tf.keras.regularizers.l2(weight_decay))(x)
     x = tf.keras.layers.AveragePooling3D(pool_kernal, strides=pool_strides)(x)
+
+    return x
+
+###---Trasnsition up block
+def transition_up_block(input, nb_filters, compression=1.0,
+                          kernal_size=(3, 3, 3), pool_strides=(2, 2, 2),
+                          type='deconv', weight_decay=1E-4):
+    ''' SubpixelConvolutional Upscaling (factor = 2)
+    Args:
+        input: tensor
+        nb_filters: number of layers
+        type: can be 'upsampling', 'subpixel', 'deconv'. Determines type of upsampling performed
+        weight_decay: weight decay factor
+    Returns: keras tensor, after applying upsampling operation.
+    '''
+
+    if type == 'upsampling':
+        x = tf.keras.layers.UpSampling3D(size=kernal_size, interpolation='bilinear')(input)
+        x = tf.keras.layers.BatchNormalization(epsilon=1.1e-5)(x)
+        x = tf.nn.relu6(x)
+        x = tf.keras.layers.Conv3D(int(nb_filters * compression), (1, 1, 1),
+                   kernel_initializer='he_normal',
+                   padding='same',
+                   use_bias=False,
+                   kernel_regularizer=tf.keras.regularizers.l2(weight_decay))(x)
+
+    else:
+        x = tf.keras.layers.Conv3DTranspose(int(nb_filters * compression),
+                            kernal_size,
+                            strides=pool_strides,
+                            activation='relu',
+                            padding='same',
+                            kernel_initializer='he_normal', kernel_regularizer=tf.keras.regularizers.l2(weight_decay))(input)
+
+    return x
+
+
+
+def DenseVnet3D(inputs,
+                nb_classes=1,
+                encoder_nb_layers=(5, 8, 8),
+                growth_rate=(4, 8, 12),
+                dilation_list=(5, 3, 1),
+                dropout_rate=0.25,
+                weight_decay=1e-4,
+                init_conv_filters=24):
+    """ 3D DenseVNet Implementation by f.i.tushar, tf 2.0.
+        This is a tensorflow 2.0 Implementation of paper:
+        Gibson et al., "Automatic multi-organ segmentation on abdominal CT with
+        dense V-networks" 2018.
+
+        Reference Implementation: vision4med :i) https://github.com/baibaidj/vision4med/blob/5c23f57c2836bfabd7bd95a024a0a0b776b181b5/nets/DenseVnet.py
+                                             ii) https://niftynet.readthedocs.io/en/dev/_modules/niftynet/network/dense_vnet.html#DenseVNet
+
+    Input
+      |
+      --[ DFS ]-----------------------[ Conv ]------------[ Conv ]------[+]-->
+           |                                       |  |              |
+           -----[ DFS ]---------------[ Conv ]------  |              |
+                   |                                  |              |
+                   -----[ DFS ]-------[ Conv ]---------              |
+                                                          [ Prior ]---
+    Args:
+        inputs: Input , input shape should be (Batch,D,H,W,channels)
+        nb_classes: number of classes
+        encoder_nb_layers: Number of Layer in each dense_block
+        growth_rate: Number of filters in each DenseBlock
+        dilation_list=Dilation rate each level
+        dropout_rate: dropout rate
+        weight_decay: weight decay
+    Returns: Returns the Segmentation Prediction of Given Input Shape
+    """
+    #--|Getting the Input
+    img_input = inputs
+    input_shape = tf.shape(img_input) # Input shape
+    nb_dense_block = len(encoder_nb_layers)# Convert tuple to list
+
+    # Initial convolution
+    x = tf.keras.layers.Conv3D(init_conv_filters, (5, 5, 5),
+               strides=2,
+               kernel_initializer='he_normal',
+               padding='same',
+               name='initial_conv3D',
+               use_bias=False,
+               kernel_regularizer=tf.keras.regularizers.l2(weight_decay))(img_input)
+    x = tf.keras.layers.BatchNormalization(epsilon=1.1e-5)(x)
+    x = tf.nn.relu6(x)
+
+    #Making the skiplist for concationatin
+    skip_list = []
+
+    # Add dense blocks
+    for block_idx in range(nb_dense_block):
+        '''
+        |--Input for dense_block is as following
+        |---#x=Input,
+            #encoder_nb_layers[block_idx]=Number of layer in a dense_block
+            #growth_rate[block_idx]= Number of Filter in that DenseBlock
+            #dilation_list= Dilation Rate.
+
+        '''
