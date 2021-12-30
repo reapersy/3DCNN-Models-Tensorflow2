@@ -229,3 +229,59 @@ def DenseVnet3D(inputs,
             #dilation_list= Dilation Rate.
 
         '''
+        x = dense_block(x, encoder_nb_layers[block_idx],
+                              growth_rate[block_idx],
+                              kernal_size=(3, 3, 3),
+                              dilation_list=dilation_list[block_idx],
+                              dropout_rate=dropout_rate,
+                              weight_decay=weight_decay,
+                              )
+
+        # Skip connection
+        skip_list.append(x)
+        #Pooling
+        x = tf.keras.layers.AveragePooling3D((2, 2, 2))(x)
+        # x = __transition_block(x, nb_filter,compression=compression,weight_decay=weight_decay,pool_kernal=(3, 3, 3),pool_strides=(2, 2, 2))
+
+
+    ##Convolutiion and third Resolution layer and Updample.
+    x_level3 = conv_block(skip_list[-1], growth_rate[2], bottleneck=True, dropout_rate=dropout_rate)
+    x_level3 = up_sampling(x_level3, scale=4)
+    # x_level3 = UpSampling3D(size = (4,4,4))(x_level3)
+
+    ##Convolutiion and 2nd Resolution layer and Updample.
+    x_level2 = conv_block(skip_list[-2], growth_rate[1], bottleneck=True, dropout_rate=dropout_rate)
+    x_level2 = up_sampling(x_level2, scale=2)
+    # x_level2 = UpSampling3D(size=(2, 2, 2))(x_level2)
+
+    ##Convolutiion and first Resolution layer
+    x_level1 = conv_block(skip_list[-3], growth_rate[0], bottleneck=True, dropout_rate=dropout_rate)
+    #x_level1 = up_sampling(x_level1, scale=2)
+    x = tf.keras.layers.Concatenate()([x_level3, x_level2, x_level1])
+
+    ###--Final Convolution---
+    x = conv_block(x, 24, bottleneck=False, dropout_rate=dropout_rate)
+    ##----Upsampling--TheFinal Output----#####
+    x = up_sampling(x, scale=2)
+
+    ####------Prediction---------------###
+    if nb_classes == 1:
+        x = tf.keras.layers.Conv3D(nb_classes, 1, activation='sigmoid', padding='same', use_bias=False)(x)
+    elif nb_classes > 1:
+        x = tf.keras.layers.Conv3D(nb_classes + 1, 1, activation='softmax', padding='same', use_bias=False)(x)
+    print(x)
+
+    # Create model.
+    model = tf.keras.Model(img_input, x, name='DenseVnet3D')
+    return model
+'''
+###################----Demo Usages----#############
+INPUT_PATCH_SIZE=[384,192,192,1]
+NUMBER_OF_CLASSES=1
+inputs = tf.keras.Input(shape=INPUT_PATCH_SIZE, name='CT')
+
+#Model_3D=DenseVnet3D(inputs,nb_classes=1,encoder_nb_layers=(5, 8, 8),growth_rate=(4, 8, 12),dilation_list=(5, 3, 1))
+Model_3D=DenseVnet3D(inputs,nb_classes=1,encoder_nb_layers=(4, 8, 16),growth_rate=(12,24,24),dilation_list=(5, 10, 10),dropout_rate=0.25)
+Model_3D.summary()
+tf.keras.utils.plot_model(Model_3D, 'DenseVnet3D.png',show_shapes=True)
+'''
