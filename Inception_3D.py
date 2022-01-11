@@ -13,4 +13,7 @@ def conv_bn_relu(x, filters, kernel_size=(3, 3, 3), strides=(1, 1, 1), padding='
 def inception_base(x):
     x = conv_bn_relu(x, filters=32)
     x = conv_bn_relu(x, filters=32)
-    x = conv_bn_
+    x = conv_bn_relu(x, filters=64)
+
+    b0 = MaxPooling3D(pool_size=(2, 2, 2))(x)
+    b1 = conv_bn_relu(x, 64, 
