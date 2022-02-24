@@ -31,4 +31,7 @@ def inception_block(x, filters=256):
     b0 = conv_bn_relu(x, filters=filters, kernel_size=(1, 1, 1))
 
     b1 = conv_bn_relu(x, filters=shrinkaged_filters, kernel_size=(1, 1, 1))
-    b1 = conv_bn_relu(b1, filters=filters, kernel_size=
+    b1 = conv_bn_relu(b1, filters=filters, kernel_size=(3, 3, 3))
+
+    b2 = conv_bn_relu(x, filters=shrinkaged_filters, kernel_size=(1, 1, 1))
+    b2 = conv_bn_relu(b2, 
