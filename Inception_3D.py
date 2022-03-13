@@ -37,4 +37,7 @@ def inception_block(x, filters=256):
     b2 = conv_bn_relu(b2, filters=filters, kernel_size=(3, 3, 3))
     b2 = conv_bn_relu(b2, filters=filters, kernel_size=(3, 3, 3))
 
-    b3 = AveragePooling3D(pool_size=(3, 3, 3), strides=(1, 1, 1), padding='same
+    b3 = AveragePooling3D(pool_size=(3, 3, 3), strides=(1, 1, 1), padding='same')(x)
+    b3 = conv_bn_relu(b3, filters=filters, kernel_size=(1, 1, 1))
+
+    bs = [b0, b1, b2, 
