@@ -49,3 +49,5 @@ def inception_block(x, filters=256):
     print(b3.get_shape())
 
     if INCEPTION_ENABLE_SPATIAL_SEPARABLE_CONV:
+        b4 = conv_bn_relu(x, filters=shrinkaged_filters, kernel_size=(1, 1, 1))
+        b4 = conv_bn_relu(
