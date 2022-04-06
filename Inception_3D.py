@@ -52,4 +52,8 @@ def inception_block(x, filters=256):
         b4 = conv_bn_relu(x, filters=shrinkaged_filters, kernel_size=(1, 1, 1))
         b4 = conv_bn_relu(b4, filters=filters, kernel_size=(5, 1, 1))
         b4 = conv_bn_relu(b4, filters=filters, kernel_size=(1, 5, 1))
-        b4 = conv_bn_relu(b4, filters=filters, ke
+        b4 = conv_bn_relu(b4, filters=filters, kernel_size=(1, 1, 5))
+        bs.append(b4)
+        print(b4.get_shape())
+
+    x = Concate
