@@ -87,3 +87,9 @@ def reduction_block(x, filters=256):
         bs.append(b3)
         print(b3.get_shape())
 
+    x = Concatenate(axis=4)(bs)
+    print(x.get_shape())
+
+    return x
+
+def Inception3D(inp
