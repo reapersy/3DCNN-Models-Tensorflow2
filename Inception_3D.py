@@ -101,4 +101,8 @@ def Inception3D(inputs,num_classes):
         x = inception_block(x, filters=INCEPTION_KEEP_FILTERS)
 
         if (i + 1) % INCEPTION_REDUCTION_STEPS == 0 and i != INCEPTION_BLOCKS - 1:
-            x = reduction_
+            x = reduction_block(x, filters=INCEPTION_KEEP_FILTERS // 2)
+
+    print('top')
+    x = GlobalMaxPooling3D()(x)
+   
