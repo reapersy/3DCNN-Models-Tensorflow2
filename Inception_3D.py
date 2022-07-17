@@ -105,4 +105,5 @@ def Inception3D(inputs,num_classes):
 
     print('top')
     x = GlobalMaxPooling3D()(x)
-   
+    x = Dropout(INCEPTION_DROPOUT)(x)
+    x = Dense(units=num_classes,activation='sigmoi
