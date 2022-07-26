@@ -7,3 +7,6 @@ import numpy as np
 
 ###Residual Block
 def Residual_Block(inputs,
+                 out_filters,
+                 kernel_size=(3, 3, 3),
+                 strides=(1, 1, 
