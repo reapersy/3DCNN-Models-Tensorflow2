@@ -9,4 +9,7 @@ import numpy as np
 def Residual_Block(inputs,
                  out_filters,
                  kernel_size=(3, 3, 3),
-                 strides=(1, 1, 
+                 strides=(1, 1, 1),
+                 use_bias=False,
+                 activation=tf.nn.relu6,
+      
