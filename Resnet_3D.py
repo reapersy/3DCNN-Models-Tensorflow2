@@ -12,4 +12,4 @@ def Residual_Block(inputs,
                  strides=(1, 1, 1),
                  use_bias=False,
                  activation=tf.nn.relu6,
-      
+                 kernel_initializer=tf.keras.initializers.VarianceScaling(distribution='uniform
