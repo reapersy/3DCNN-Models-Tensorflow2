@@ -14,4 +14,9 @@ def Residual_Block(inputs,
                  activation=tf.nn.relu6,
                  kernel_initializer=tf.keras.initializers.VarianceScaling(distribution='uniform'),
                  bias_initializer=tf.zeros_initializer(),
-                 kernel_regularizer=tf.keras.regularizers
+                 kernel_regularizer=tf.keras.regularizers.l2(l=0.001),
+                 bias_regularizer=None,
+                 **kwargs):
+
+
+ 
