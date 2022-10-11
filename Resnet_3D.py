@@ -19,4 +19,6 @@ def Residual_Block(inputs,
                  **kwargs):
 
 
- 
+    conv_params={'padding': 'same',
+                   'use_bias': use_bias,
+                   '
