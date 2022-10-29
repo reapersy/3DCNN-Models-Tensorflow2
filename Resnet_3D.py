@@ -22,4 +22,6 @@ def Residual_Block(inputs,
     conv_params={'padding': 'same',
                    'use_bias': use_bias,
                    'kernel_initializer': kernel_initializer,
-                   'bias_initializer': bias_initi
+                   'bias_initializer': bias_initializer,
+                   'kernel_regularizer': kernel_regularizer,
+                   'bias_r
