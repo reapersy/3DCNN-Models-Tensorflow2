@@ -24,4 +24,7 @@ def Residual_Block(inputs,
                    'kernel_initializer': kernel_initializer,
                    'bias_initializer': bias_initializer,
                    'kernel_regularizer': kernel_regularizer,
-                   'bias_r
+                   'bias_regularizer': bias_regularizer}
+
+    in_filters = inputs.get_shape().as_list()[-1]
+    x=inp
