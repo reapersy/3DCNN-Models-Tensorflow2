@@ -31,4 +31,7 @@ def Residual_Block(inputs,
     orig_x=x
 
     ##building
-    # Adjust the strided conv kernel size to prevent losing informa
+    # Adjust the strided conv kernel size to prevent losing information
+    k = [s * 2 if s > 1 else k for k, s in zip(kernel_size, strides)]
+
+    if np.prod(strides) != 
