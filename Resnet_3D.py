@@ -27,4 +27,8 @@ def Residual_Block(inputs,
                    'bias_regularizer': bias_regularizer}
 
     in_filters = inputs.get_shape().as_list()[-1]
-    x=inp
+    x=inputs
+    orig_x=x
+
+    ##building
+    # Adjust the strided conv kernel size to prevent losing informa
