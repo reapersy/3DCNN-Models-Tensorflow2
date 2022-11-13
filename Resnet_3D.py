@@ -34,4 +34,5 @@ def Residual_Block(inputs,
     # Adjust the strided conv kernel size to prevent losing information
     k = [s * 2 if s > 1 else k for k, s in zip(kernel_size, strides)]
 
-    if np.prod(strides) != 
+    if np.prod(strides) != 1:
+            orig_x = tf.keras.layers.MaxPool3D(pool_size=strides,strides=strides,paddin
