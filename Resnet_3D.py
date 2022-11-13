@@ -35,4 +35,8 @@ def Residual_Block(inputs,
     k = [s * 2 if s > 1 else k for k, s in zip(kernel_size, strides)]
 
     if np.prod(strides) != 1:
-            orig_x = tf.keras.layers.MaxPool3D(pool_size=strides,strides=strides,paddin
+            orig_x = tf.keras.layers.MaxPool3D(pool_size=strides,strides=strides,padding='valid')(orig_x)
+
+    ##sub-unit-0
+    x=tf.keras.layers.BatchNormalization()(x)
+    x=activa
