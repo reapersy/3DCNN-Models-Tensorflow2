@@ -39,4 +39,5 @@ def Residual_Block(inputs,
 
     ##sub-unit-0
     x=tf.keras.layers.BatchNormalization()(x)
-    x=activa
+    x=activation(x)
+    x=tf.keras.layers.Conv3D(filters=out_filters,kernel_size=k,strides=strides,**conv_param
