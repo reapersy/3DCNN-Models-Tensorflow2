@@ -49,4 +49,6 @@ def Residual_Block(inputs,
 
         # Handle differences in input and output filter sizes
     if in_filters < out_filters:
-        orig_x = tf.pad(tensor=orig_x,paddings=[[0, 0]] * (len(x.get_sh
+        orig_x = tf.pad(tensor=orig_x,paddings=[[0, 0]] * (len(x.get_shape().as_list()) - 1) + [[
+                    int(np.floor((out_filters - in_filters) / 2.)),
+         
