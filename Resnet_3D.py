@@ -54,4 +54,4 @@ def Residual_Block(inputs,
                     int(np.ceil((out_filters - in_filters) / 2.))]])
 
     elif in_filters > out_filters:
-  
+        orig_x = tf.keras.layers.Conv3D(filters=out_filters,kernel_size=kernel_size,strides=(1,1,1),**conv_param
