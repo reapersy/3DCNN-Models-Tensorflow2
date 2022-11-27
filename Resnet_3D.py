@@ -51,4 +51,7 @@ def Residual_Block(inputs,
     if in_filters < out_filters:
         orig_x = tf.pad(tensor=orig_x,paddings=[[0, 0]] * (len(x.get_shape().as_list()) - 1) + [[
                     int(np.floor((out_filters - in_filters) / 2.)),
-         
+                    int(np.ceil((out_filters - in_filters) / 2.))]])
+
+    elif in_filters > out_filters:
+  
