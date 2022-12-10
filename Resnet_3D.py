@@ -65,4 +65,7 @@ def Residual_Block(inputs,
 def Resnet3D(inputs,
               num_classes,
               num_res_units=TRAIN_NUM_RES_UNIT,
-              filt
+              filters=TRAIN_NUM_FILTERS,
+              strides=TRAIN_STRIDES,
+              use_bias=False,
+       
