@@ -71,4 +71,7 @@ def Resnet3D(inputs,
               activation=TRAIN_CLASSIFY_ACTICATION,
               kernel_initializer=TRAIN_KERNAL_INITIALIZER,
               bias_initializer=tf.zeros_initializer(),
-              kernel_r
+              kernel_regularizer=tf.keras.regularizers.l2(l=0.001),
+              bias_regularizer=None,
+              **kwargs):
+    conv_para
