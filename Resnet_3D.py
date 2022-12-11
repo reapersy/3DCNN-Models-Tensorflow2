@@ -69,4 +69,6 @@ def Resnet3D(inputs,
               strides=TRAIN_STRIDES,
               use_bias=False,
               activation=TRAIN_CLASSIFY_ACTICATION,
-              kernel_initializer=TRAIN_KERNAL
+              kernel_initializer=TRAIN_KERNAL_INITIALIZER,
+              bias_initializer=tf.zeros_initializer(),
+              kernel_r
