@@ -68,4 +68,5 @@ def Resnet3D(inputs,
               filters=TRAIN_NUM_FILTERS,
               strides=TRAIN_STRIDES,
               use_bias=False,
-       
+              activation=TRAIN_CLASSIFY_ACTICATION,
+              kernel_initializer=TRAIN_KERNAL
