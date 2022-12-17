@@ -74,4 +74,6 @@ def Resnet3D(inputs,
               kernel_regularizer=tf.keras.regularizers.l2(l=0.001),
               bias_regularizer=None,
               **kwargs):
-    conv_para
+    conv_params = {'padding': 'same',
+                   'use_bias': use_bias,
+                
