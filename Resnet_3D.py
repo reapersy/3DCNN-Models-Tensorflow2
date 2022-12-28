@@ -76,4 +76,5 @@ def Resnet3D(inputs,
               **kwargs):
     conv_params = {'padding': 'same',
                    'use_bias': use_bias,
-                
+                   'kernel_initializer': kernel_initializer,
+                   'bias_initializer': bias_init
