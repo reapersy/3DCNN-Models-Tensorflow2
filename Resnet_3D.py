@@ -79,4 +79,8 @@ def Resnet3D(inputs,
                    'kernel_initializer': kernel_initializer,
                    'bias_initializer': bias_initializer,
                    'kernel_regularizer': kernel_regularizer,
-                   'bias_regul
+                   'bias_regularizer': bias_regularizer}
+
+
+    ##building
+    k = [s * 2 if s > 1 els
