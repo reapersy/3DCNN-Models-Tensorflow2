@@ -92,4 +92,7 @@ def Resnet3D(inputs,
     x=tf.keras.layers.Conv3D(filters[0], k, strides[0], **conv_params)(x)
 
     for res_scale in range(1, len(filters)):
-        x = R
+        x = Residual_Block(
+                inputs=x,
+                out_filters=filters[res_scale],
+                s
