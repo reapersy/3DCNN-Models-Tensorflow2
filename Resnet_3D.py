@@ -89,4 +89,7 @@ def Resnet3D(inputs,
     #Input
     x = inputs
     #1st-convo
-    x=tf.keras.layers.Conv3D(fil
+    x=tf.keras.layers.Conv3D(filters[0], k, strides[0], **conv_params)(x)
+
+    for res_scale in range(1, len(filters)):
+        x = R
