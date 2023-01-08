@@ -83,4 +83,10 @@ def Resnet3D(inputs,
 
 
     ##building
-    k = [s * 2 if s > 1 els
+    k = [s * 2 if s > 1 else 3 for s in strides[0]]
+
+
+    #Input
+    x = inputs
+    #1st-convo
+    x=tf.keras.layers.Conv3D(fil
