@@ -99,4 +99,7 @@ def Resnet3D(inputs,
                 activation=activation,
                 name='unit_{}_0'.format(res_scale))
         for i in range(1, num_res_units):
-            x 
+            x = Residual_Block(
+                    inputs=x,
+                    out_filters=filters[res_scale],
+                 
