@@ -97,4 +97,6 @@ def Resnet3D(inputs,
                 out_filters=filters[res_scale],
                 strides=strides[res_scale],
                 activation=activation,
-                name='un
+                name='unit_{}_0'.format(res_scale))
+        for i in range(1, num_res_units):
+            x 
