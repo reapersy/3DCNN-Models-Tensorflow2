@@ -104,4 +104,8 @@ def Resnet3D(inputs,
                     out_filters=filters[res_scale],
                     strides=(1, 1, 1),
                     activation=activation,
-                    name='unit_{}
+                    name='unit_{}_{}'.format(res_scale, i))
+
+
+    x=tf.keras.layers.BatchNormalization()(x)
+    x=activation(x)
