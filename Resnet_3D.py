@@ -112,4 +112,5 @@ def Resnet3D(inputs,
     #axis = tuple(range(len(x.get_shape().as_list())))[1:-1]
     #x = tf.reduce_mean(x, axis=axis, name='global_avg_pool')
     x=tf.keras.layers.GlobalAveragePooling3D()(x)
-    x =tf.keras.layers
+    x =tf.keras.layers.Dropout(0.5)(x)
+    classifier=tf.keras.layers.Dense(units=num_classes,activation='sig
