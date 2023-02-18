@@ -109,3 +109,5 @@ def Resnet3D(inputs,
 
     x=tf.keras.layers.BatchNormalization()(x)
     x=activation(x)
+    #axis = tuple(range(len(x.get_shape().as_list())))[1:-1]
+    #x = tf.reduce_mean(x, 
