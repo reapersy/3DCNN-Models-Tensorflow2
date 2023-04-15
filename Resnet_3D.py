@@ -116,4 +116,6 @@ def Resnet3D(inputs,
     classifier=tf.keras.layers.Dense(units=num_classes,activation='sigmoid')(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=classifier)
-    #model.compile(optimizer=Adam(lr=TRAIN_CLASSIFY_LEARNING_RATE), loss=[TRAIN_CLASSIFY_LOSS], metrics
+    #model.compile(optimizer=Adam(lr=TRAIN_CLASSIFY_LEARNING_RATE), loss=[TRAIN_CLASSIFY_LOSS], metrics=[TRAIN_CLASSIFY_METRICS,tf.keras.metrics.AUC()])
+
+    return model
