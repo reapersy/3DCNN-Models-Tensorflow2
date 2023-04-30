@@ -6,4 +6,6 @@ import tensorflow as tf
 def Unet3D(inputs,num_classes):
     x=inputs
     conv1 = Conv3D(8, 3, activation = 'relu', padding = 'same',data_format="channels_last")(x)
-    conv1 = Conv3D(8, 3, activation = 'r
+    conv1 = Conv3D(8, 3, activation = 'relu', padding = 'same')(conv1)
+    pool1 = MaxPooling3D(pool_size=(2, 2, 2))(conv1)
+ 
