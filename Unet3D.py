@@ -16,4 +16,7 @@ def Unet3D(inputs,num_classes):
     pool3 = MaxPooling3D(pool_size=(2, 2, 2))(conv3)
     conv4 = Conv3D(64, 3, activation = 'relu', padding = 'same')(pool3)
     conv4 = Conv3D(64, 3, activation = 'relu', padding = 'same')(conv4)
-    d
+    drop4 = Dropout(0.5)(conv4)
+    pool4 = MaxPooling3D(pool_size=(2, 2, 2))(drop4)
+
+    c
