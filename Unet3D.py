@@ -39,4 +39,5 @@ def Unet3D(inputs,num_classes):
     conv8 = Conv3D(16, 3, activation = 'relu', padding = 'same')(conv8)
 
     up9 = Conv3D(8, 2, activation = 'relu', padding = 'same')(UpSampling3D(size = (2,2,2))(conv8))
-    merg
+    merge9 = concatenate([conv1,up9],axis=-1)
+    conv9 = Conv3D(8, 3, activation = 'relu', padding =
