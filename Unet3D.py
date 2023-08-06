@@ -42,3 +42,5 @@ def Unet3D(inputs,num_classes):
     merge9 = concatenate([conv1,up9],axis=-1)
     conv9 = Conv3D(8, 3, activation = 'relu', padding = 'same')(merge9)
     conv9 = Conv3D(8, 3, activation = 'relu', padding = 'same')(conv9)
+    conv10 = Conv3D(1, 1, activation = 'sigmoid')(conv9)
+    model = Model(inputs=inputs, ou
