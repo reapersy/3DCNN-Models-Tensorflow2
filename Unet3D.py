@@ -44,4 +44,6 @@ def Unet3D(inputs,num_classes):
     conv9 = Conv3D(8, 3, activation = 'relu', padding = 'same')(conv9)
     conv10 = Conv3D(1, 1, activation = 'sigmoid')(conv9)
     model = Model(inputs=inputs, outputs = conv10)
-    #model.compile(optimizer = Adam(lr = 1e-4), loss = 'binary_crossentropy', metr
+    #model.compile(optimizer = Adam(lr = 1e-4), loss = 'binary_crossentropy', metrics = ['accuracy'])
+    return model
+
