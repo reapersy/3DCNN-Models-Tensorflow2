@@ -13,4 +13,7 @@ TRAIN_CLASSIFY_ACTICATION=tf.nn.relu6
 TRAIN_KERNAL_INITIALIZER=tf.keras.initializers.VarianceScaling(distribution='uniform')
 #-------DenseNet13D----#####
 # DenseNet
-DENSE_NET_BL
+DENSE_NET_BLOCKS = 3
+DENSE_NET_BLOCK_LAYERS = 5
+DENSE_NET_INITIAL_CONV_DIM = 16
+DENSE_NET_GROWTH_RATE = DENSE_NET
