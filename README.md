@@ -1,6 +1,33 @@
-import tensorflow as tf
-import math
-###---Number-of-GPU
+
+# 3DCNN-Models-Tensorflow2
+
+This repository is a comprehensive collection of 3D implementations of commonly used 2D CNNs. It fills a significant gap as the majority of deep learning libraries offer ready-to-use 2D models but 3D models are generally less accessible.
+
+## Required Libraries:
+```ruby
+* Python 3.x 
+* Tensorflow 2.X
+* Numpy
+* random
+```
+
+## Available 3D Models:
+
+### Classification:
+```ruby
+* Resnet_3D.py 
+* DenseNet_3D.py
+* VGG_3D.py
+* Inception_3D.py
+```
+### Segmentation:
+```ruby
+* DenseVnet3D.py 
+* Unet3D.py
+```
+### Execution Steps
+Customize the models based on your requirements and the capabilities of your GPUs using *config.py*:
+```ruby
 
 ##-----Network Configuration----#####
 NUMBER_OF_CLASSES=5
@@ -31,3 +58,4 @@ INCEPTION_DROPOUT = 0.5
 #---------VGG3D----####
 TRAIN_CLASSIFY_USE_BN = False
 
+```
